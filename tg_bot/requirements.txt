@@ -1,0 +1,2 @@
+pytelegrambotapi
+urllib3==1.25.4

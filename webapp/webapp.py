@@ -8,6 +8,7 @@ from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 
+ENSAMBLE_BASEDIR = './super_models/ensamble_effnet_b3/'
 
 @app.route("/", methods=["GET", "POST"])
 def predict():
@@ -31,8 +32,6 @@ def predict():
 			name = str(results.pandas().xyxy[0].iloc[0]['name'])
 			area = (xmin, ymin, xmax, ymax)
 			img = img.crop(area)
-
-	# ADD RUNNING TIME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			img.save('static/crop.jpg', format="JPEG")
 		results.render()  # updates results.imgs with boxes and labels
 		for img in results.imgs:
@@ -49,7 +48,5 @@ if __name__ == "__main__":
 	args = parser.parse_args()
 	
 	model = torch.hub.load('ultralytics/yolov5', 'custom', path='./super_models/best.pt', force_reload=True)
-	#model = torch.hub.load(
-	#	"ultralytics/yolov5", "yolov5s", pretrained=True, force_reload=True)  # force_reload = recache latest code
 	model.eval()
 	app.run(host="0.0.0.0", port=args.port)  # debug=True causes Restarting with stat

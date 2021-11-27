@@ -56,6 +56,7 @@ def predict():
 		if file.filename.strip().split('.')[1] == 'jpg':
 			img_bytes = file.read()
 			img = Image.open(io.BytesIO(img_bytes))
+			# img = img.crop((0, 0, img.size[0], img.size[1] - 200))
 			results = model(img, size=640)
 			data = results.pandas().xyxy[0].to_json(orient="records") #json render response
 			title = ''
@@ -80,6 +81,8 @@ def predict():
 					title = classes[is_princess]
 				else:
 					title = name
+				if title not in ('Princess', 'Tiger', 'Leopard'):
+					title = 'Other'
 				img.save('static/crop.jpg', format="JPEG")
 			results.render()  # updates results.imgs with boxes and labels
 			for img in results.imgs:
@@ -150,7 +153,10 @@ if __name__ == "__main__":
 	args = parser.parse_args()
 
 	device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
-	model = torch.hub.load('ultralytics/yolov5', 'custom', path='./super_models/best_mixed_medium.pt', force_reload=True)
+	model = torch.hub.load('ultralytics/yolov5',
+			'custom',
+			path='./super_models/best_given_others.pt',
+			force_reload=True)
 	model = model.to(device)
 	model.eval()
 	tiger_princess_models = list()

@@ -44,7 +44,6 @@ transforms = {
 classes = {0: 'Princess', 1: "Tiger"}
 
 
-
 @app.route("/", methods=["GET", "POST"])
 def predict():
 	if request.method == "POST":
@@ -93,7 +92,7 @@ def predict():
 			if not path.exists(f"predicted"):
 				os.mkdir(f"predicted")
 			predicts_csv = open("./predicted/predicts.csv", "w+")
-			predicts_csv.write("img,label\n")
+			predicts_csv.write("id,class\n")
 			archive = zipfile.ZipFile(file.stream._file)
 			file_names = archive.namelist()
 			file_names = [file_name for file_name in file_names if (file_name.endswith(".jpg") or file_name.endswith(".jpeg")) and "__MACOSX" not in file_name]
@@ -155,7 +154,7 @@ if __name__ == "__main__":
 	device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
 	model = torch.hub.load('ultralytics/yolov5',
 			'custom',
-			path='./super_models/best_given_others.pt',
+			path='./super_models/best.pt',
 			force_reload=True)
 	model = model.to(device)
 	model.eval()

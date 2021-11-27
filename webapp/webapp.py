@@ -135,7 +135,12 @@ def predict():
 					for img in results.imgs:
 						img_base64 = Image.fromarray(img)
 						img_base64.save(f"predicted/{title}/{file_.split('/')[-1]}", format="JPEG")
-			return render_template("index.html")
+			predicts_csv.close()
+			predicts = list()
+			with open("./predicted/predicts.csv", 'r') as preds:
+				for line in preds:
+					predicts.append(line.strip())
+			return render_template("predict.html", predicts=predicts)
 	return render_template("index.html")
 
 

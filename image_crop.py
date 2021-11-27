@@ -10,9 +10,6 @@ SOURCE_PATH_1 = "../Downloads/ХАК/Train_3500/3 класса/Тигры/"
 DIST_PATH_1 = "../Downloads/ХАК/tiger_croped/"
 
 model = torch.hub.load('ultralytics/yolov5', 'custom', path='../Downloads/best.pt', force_reload=True)
-#model = torch.hub.load("ultralytics/yolov5", "yolov5m", pretrained=False, force_reload=True, classes=2)
-#model.load_state_dict(torch.load('../Downloads/best.pt')['model'].state_dict())
-#model = model.fuse().autoshape()
 model.eval()
 model = model.to('cpu')
 

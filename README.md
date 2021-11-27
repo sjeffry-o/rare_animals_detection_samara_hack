@@ -13,7 +13,7 @@ Run locally and dev:
 * `python3 -m venv venv`
 * `source venv/bin/activate`
 * `(venv) $ pip install -r requirements.txt`
-* `(venv) $ cd webapp'
+* `(venv) $ cd webapp`
 * `(venv) $ python3 webapp.py --port 5000`
 
 ## Docker

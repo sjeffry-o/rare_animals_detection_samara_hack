@@ -1,5 +1,8 @@
 # Rare animals detection samara hack 
 
+## Eval file "label.csv" for task1 in eval_task1 directory 
+## Eval file "label.csv" for task2 in eval_task2 directory 
+
 ## Web app
 Simple app consisting of a form where you can upload an image, and see the inference result of the model in the browser. Run:
 
